@@ -97,21 +97,21 @@ print(response.json()['headers'])
 
 #To avoid cookies we have to use a headless browser...
 
-# import json
-# from playwright.sync_api import sync_playwright
+import json
+from playwright.sync_api import sync_playwright
 
-# with sync_playwright() as p:
-#     for browser_type in [p.chromium, p.firefox, p.webkit]:
-#         browser = browser_type.launch()
-#         #Since the headless browsers identify themselves by their own, we are going
-#         #to use custom user-agent here to over-write the defaluts of headless browsers..
-#         page = browser.new_page(extra_http_headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/93.0.4576.0 Safari/537.36'
-#                                                     'Mozilla/5.0 (X11; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0 '
-#                                                     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15'})
-#         page.goto('https://httpbin.org/headers')
-#         jsonContent = json.loads(page.inner_text('pre'))
-#         print(jsonContent['headers']['User-Agent'])
-#         browser.close()
+with sync_playwright() as p:
+    for browser_type in [p.chromium, p.firefox, p.webkit]:
+        browser = browser_type.launch()
+        #Since the headless browsers identify themselves by their own, we are going
+        #to use custom user-agent here to over-write the defaluts of headless browsers..
+        page = browser.new_page(extra_http_headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/93.0.4576.0 Safari/537.36'
+                                                    'Mozilla/5.0 (X11; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0 '
+                                                    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15'})
+        page.goto('https://httpbin.org/headers')
+        jsonContent = json.loads(page.inner_text('pre'))
+        print(jsonContent['headers']['User-Agent'])
+        browser.close()
 
 
 ##Here I can use playwright-stealth to excelerate the code. But, sometimes it can give
