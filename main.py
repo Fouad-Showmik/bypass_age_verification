@@ -2,9 +2,9 @@
 # #
 # #
 #
-# import requests
-# response=requests.get('https://ipinfo.io/json')
-# print(response.json())
+import requests
+response=requests.get('https://ipinfo.io/json')
+print(response.json())
 # #
 # #
 # #
@@ -47,51 +47,51 @@ for j in range(10):
 # #After rotating proxy we'll pick one of the valid proxies and put it here to check the origin..
 #
 #
-# import requests
+import requests
 
-# proxies = {'http': 'http://190.104.245.86:8080'}
-# response = requests.get('http://httpbin.org/ip', proxies=proxies)
-# print(response.json())
+proxies = {'http': 'http://190.104.245.86:8080'}
+response = requests.get('http://httpbin.org/ip', proxies=proxies)
+print(response.json())
 
 
 ######################################################
 
 #User Agent (UA) Header..
 
-# import requests
-# import random
+import requests
+import random
 
-# headers_list = [{
-#     'authority': 'httpbin.org',
-#     'cache-control': 'max-age=0',
-#     'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"',
-#     'sec-ch-ua-mobile': '?0',
-#     'upgrade-insecure-requests': '1',
+headers_list = [{
+    'authority': 'httpbin.org',
+    'cache-control': 'max-age=0',
+    'sec-ch-ua': '"Chromium";v="92", " Not A;Brand";v="99", "Google Chrome";v="92"',
+    'sec-ch-ua-mobile': '?0',
+    'upgrade-insecure-requests': '1',
 
-#     #Here in the array of user-agent, I Have to rotate it like the proxy too.
-#     #So, I can take the user-agents from the target website or other ideal websites
-#     #like Chrome, Firefox etc. by researching their updated user-agents (UA).
-#     #Besides,I can also provide a referrer user-agent from google or from the internal
-#     #page of the same website which will hide us more efficiently and provide more relay to the targeted
-#     #website to trust us.
-
-
-#     'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
-#     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
-#     'Mozilla/5.0 (Windows NT x.y; rv:10.0) Gecko/20100101 Firefox/10.0'
-#     'Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0',
+    #Here in the array of user-agent, I Have to rotate it like the proxy too.
+    #So, I can take the user-agents from the target website or other ideal websites
+    #like Chrome, Firefox etc. by researching their updated user-agents (UA).
+    #Besides,I can also provide a referrer user-agent from google or from the internal
+    #page of the same website which will hide us more efficiently and provide more relay to the targeted
+    #website to trust us.
 
 
-#     'sec-fetch-site': 'none',
-#     'sec-fetch-mode': 'navigate',
-#     'sec-fetch-user': '?1',
-#     'sec-fetch-dest': 'document',
-#     'accept-language': 'en-US,en;q=0.9',
-# }
-# ]
-# headers = random.choice(headers_list)
-# response = requests.get('https://httpbin.org/headers', headers=headers)
-# print(response.json()['headers'])
+    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
+    'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'Mozilla/5.0 (Windows NT x.y; rv:10.0) Gecko/20100101 Firefox/10.0'
+    'Mozilla/5.0 (Windows NT x.y; Win64; x64; rv:10.0) Gecko/20100101 Firefox/10.0',
+
+
+    'sec-fetch-site': 'none',
+    'sec-fetch-mode': 'navigate',
+    'sec-fetch-user': '?1',
+    'sec-fetch-dest': 'document',
+    'accept-language': 'en-US,en;q=0.9',
+}
+]
+headers = random.choice(headers_list)
+response = requests.get('https://httpbin.org/headers', headers=headers)
+print(response.json()['headers'])
 
 
 
@@ -136,21 +136,21 @@ for j in range(10):
 ##async
 #async is a non-blocking operation which'll work without getting any response...
 
-# import asyncio
-# from playwright import async_playwright
-# from playwright_stealth import stealth_async
+import asyncio
+from playwright import async_playwright
+from playwright_stealth import stealth_async
 
-# async def main():
-#     async with async_playwright() as p:
-#         for browser_type in [p.chromium, p.firefox, p.webkit]:
-#             browser = await browser_type.launch()
-#             page = await browser.new_page()
-#             await stealth_async(page)
-#             await page.goto('http://whatsmyuseragent.org/')
-#             await page.screenshot(path=f'example-{browser_type.name}.png')
-#             await browser.close()
+async def main():
+    async with async_playwright() as p:
+        for browser_type in [p.chromium, p.firefox, p.webkit]:
+            browser = await browser_type.launch()
+            page = await browser.new_page()
+            await stealth_async(page)
+            await page.goto('http://whatsmyuseragent.org/')
+            await page.screenshot(path=f'example-{browser_type.name}.png')
+            await browser.close()
 
-# asyncio.get_event_loop().run_until_complete(main())
+asyncio.get_event_loop().run_until_complete(main())
 
 
 #####async works more faster than sync and it is also efficient..
@@ -164,14 +164,14 @@ for j in range(10):
 
 #Here I'll use beautifulsoup to visit selected pages so that, the bot get confused to identify us..
 
-# import requests 
-# from bs4 import BeautifulSoup 
+import requests 
+from bs4 import BeautifulSoup 
  
-# response = requests.get('https://scrapeme.live/shop/') 
-# soup = BeautifulSoup(response.content, 'html.parser') 
-# pages = soup.select('.woocommerce-pagination a.page-numbers:not(.next)') 
-# print(pages[0].get('href')) # https://scrapeme.live/shop/page/2/ 
-# print(pages[-1].get('href')) # https://scrapeme.live/shop/page/48/
+response = requests.get('https://scrapeme.live/shop/') 
+soup = BeautifulSoup(response.content, 'html.parser') 
+pages = soup.select('.woocommerce-pagination a.page-numbers:not(.next)') 
+print(pages[0].get('href')) # https://scrapeme.live/shop/page/2/ 
+print(pages[-1].get('href')) # https://scrapeme.live/shop/page/48/
 
 ##Here finishes the bypassing of age verification and then starts the bypassing session
 #of captcha..
